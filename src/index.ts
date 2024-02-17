@@ -27,6 +27,20 @@ app.get('/user', (req, res) => {
   return res.render('user', { title: "Login Page", message: "Login Page" });
 });
 
+app.get('/health-check', async (_req, res, _next) => {
+  const healthcheck = {
+    uptime: process.uptime(),
+    message: 'OK',
+    timestamp: Date.now()
+  };
+  try {
+    res.send(healthcheck);
+  } catch (error: any) {
+    healthcheck.message = error;
+    res.status(503).send();
+  }
+});
+
 app.post("/api/v1/user/login", authController.loginUser)
 
 app.post('/api/v1/user/add', authController.addUser);

@@ -2,7 +2,8 @@
   "name": "node-typescript-starter",
   "version": "1.0.0",
   "description": "Node project starter with Typescript, ESLint and Prettier",
-  "main": "index.js",
+  "main": "index.ts",
+  "type": "module",
   "license": "MIT",
   "scripts": {
     "start": "nodemon --watch \"*.ts\" --exec \"ts-node\" ./src/index.ts",
