@@ -4,12 +4,14 @@ import dotenv from 'dotenv';
 mongoose.Promise = global.Promise;
 dotenv.config();
 
-const { DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER } = process.env;
-
 const connectToDatabase = async (): Promise<void> => {
-  const options: ConnectOptions = {};
+  const options: ConnectOptions = {
+  };
 
-  await mongoose.connect(`mongodb://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}`, options);
+  const dbUrl = process.env.MONGODB_URL as string;
+
+  await mongoose.connect(dbUrl, options);
+  console.log(mongoose.connection.readyState===1 && "db connected")
 };
 
 export { connectToDatabase };
