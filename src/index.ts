@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { connectToDatabase } from './utils/databaseConnection';
-import authController from './controllers/authController';
+import { connectToDatabase } from './utils/databaseConnection.js';
+import authController from './controllers/authController.js';
 
 dotenv.config();
 
