@@ -1,13 +1,15 @@
 {
-  "name": "node-typescript-starter",
+  "name": "simple-auth-backend-v1",
   "version": "1.0.0",
-  "description": "Node project starter with Typescript, ESLint and Prettier",
+  "description": "Simple authentication backend V1",
   "main": "index.ts",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "build": "tsc",
+    "build:watch": "tsc -w -p tsconfig.json",
     "start": "node build/index.js",
-    "dev": "tsx --watch src/index.ts",
+    "dev": "tsx watch src/index.ts",
     "eslint:fix": "eslint --fix",
     "format": "prettier . --write"
   },
