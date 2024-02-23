@@ -2,6 +2,12 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { connectToDatabase } from './utils/databaseConnection.js';
 import authController from './controllers/authController.js';
+import { fileURLToPath } from 'url';
+import path from 'path';
+import { Router } from 'express';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -9,10 +15,12 @@ const HOST = process.env.HOST || 'http://localhost';
 const PORT = parseInt(process.env.PORT || '4500');
 
 const app = express();
+const router = Router();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.set('views', `${__dirname}/views`);
+app.set('views', `/views`);
+
 app.set('view engine', 'pug');
 
 app.get('/', (req, res) => {
@@ -41,9 +49,9 @@ app.get('/health-check', async (_req, res, _next) => {
   }
 });
 
-app.post("/api/v1/user/login", authController.loginUser)
+app.post("/api/v1/auth/login", authController.loginUser)
 
-app.post('/api/v1/user/add', authController.addUser);
+app.post('/api/v1/auth/signup', authController.addUser);
 
 app.listen(PORT, async () => {
   await connectToDatabase();
