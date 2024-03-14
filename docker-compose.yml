@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  backend:
+    image: 207e3e871684
+    ports:
+      - 6000:4500
