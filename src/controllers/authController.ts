@@ -1,6 +1,7 @@
 import hashPassword from "../utils/hashPassword.js";
 import UserModel from "../models/user.js";
 import { checkValidation } from "../lib/checkValidation.js";
+import { ERROR_MESSAGES } from "../utils/constants.js";
 
 const authController = {
     async loginUser(req:any, res:any) {
@@ -13,7 +14,11 @@ const authController = {
                 return res.render('user', { title: "Login Page", name: document.username });
             }
         }
-        return res.status(400).json("Wrong creds")
+        return res.status(401).json({
+            success: true,
+            message: ERROR_MESSAGES.INVALID_CREDENTIALS,
+            data: null,
+        })
     },
     async addUser(req:any, res:any) {
         const { password, username } = req.body;
