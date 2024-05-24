@@ -2,6 +2,8 @@ import hashPassword from "../utils/hashPassword.js";
 import UserModel from "../models/user.js";
 import { checkValidation } from "../lib/checkValidation.js";
 import { ERROR_MESSAGES } from "../utils/constants.js";
+import jwt from "jsonwebtoken";
+import getJWTSecret from "@/utils/getJWTSecret";
 
 const authController = {
     async loginUser(req:any, res:any) {
@@ -11,7 +13,11 @@ const authController = {
         const hashedPassword = hashPassword(password);
         if (document && hashedPassword) {
             if (document.password === hashedPassword) {
-                return res.render('user', { title: "Login Page", name: document.username });
+               const token = jwt.sign({ title: "Login Page", name: document.username }, getJWTSecret(),{expiresIn: "24h"})
+                // return res.render('user', { title: "Login Page", name: document.username });
+                return res.json({
+                    token
+                })
             }
         }
         return res.status(401).json({

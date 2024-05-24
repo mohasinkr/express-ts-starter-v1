@@ -17,7 +17,14 @@
     // "noUnusedParameters": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "baseUrl": ".",
+    "paths": {
+      "@controllers/*" : ["src/controllers/*.ts"],
+      "@/routes/*": ["src/routes/*.ts"],
+      "@/utils/*": ["src/utils/*.ts"]
+
+    }
   },
   "include": ["src/**/*", "__tests__/**/*"]
 }
