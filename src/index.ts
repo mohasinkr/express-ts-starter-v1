@@ -33,6 +33,10 @@ app.get("/signup", (req, res) => {
   return res.sendFile(`${__dirname}/views/signup.html`);
 });
 
+app.get("/forgot-password", (req,res)=>{
+  return res.sendFile(`${__dirname}/views/forgot-password.html`);
+})
+
 app.use('/api/v1', indexRouter);
 
 app.get('/health-check', async (_req, res, _next) => {
