@@ -16,7 +16,9 @@ const authController = {
                const token = jwt.sign({ title: "Login Page", name: document.username }, getJWTSecret(),{expiresIn: "24h"})
                 // return res.render('user', { title: "Login Page", name: document.username });
                 return res.json({
-                    token
+                    data:{
+                        token
+                    }
                 })
             }
         }
@@ -28,10 +30,19 @@ const authController = {
     },
     async addUser(req:any, res:any) {
         const { password, username } = req.body;
+        //checking if username is already present in db
+        const document = await UserModel.findOne({ username });
+        if (document) {
+            return res.json({
+                success: false,
+                message: 'User already exists',
+                data: null
+            })
+        }
         const hashedPassword = hashPassword(password);
 
         console.log(hashedPassword);
-
+        
         await UserModel.create({ username, password: hashedPassword });
 
         return res.send('ok');

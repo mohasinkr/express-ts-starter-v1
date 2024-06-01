@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import { connectToDatabase } from './utils/databaseConnection.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import { Router } from 'express';
 import indexRouter from './routes/index.routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -15,7 +14,6 @@ const HOST = process.env.HOST || 'http://localhost';
 const PORT = parseInt(process.env.PORT || '4500');
 
 const app = express();
-const router = Router();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
