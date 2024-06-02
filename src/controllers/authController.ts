@@ -1,9 +1,9 @@
-import hashPassword from "../utils/hashPassword.js";
-import UserModel from "../models/user.js";
-import { checkValidation } from "../lib/checkValidation.js";
-import { ERROR_MESSAGES } from "../utils/constants.js";
+import hashPassword from "@/utils/hashPassword.js";
+import UserModel from "@/models/user.js"
+import { checkValidation } from "@/lib/checkValidation.js";
+import { ERROR_MESSAGES} from "@/utils/constants.js";
 import jwt from "jsonwebtoken";
-import getJWTSecret from "@/utils/getJWTSecret";
+import getJWTSecret from "@/utils/getJWTSecret.js";
 import { Request, Response } from "express";
 
 const authController = {
