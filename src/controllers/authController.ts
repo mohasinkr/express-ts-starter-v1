@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import getJWTSecret from "@/utils/getJWTSecret.js";
 import { Request, Response } from "express";
 
+
 const authController = {
     async loginUser(req: Request, res: Response) {
         const { username, password } = req.body;
@@ -16,11 +17,6 @@ const authController = {
             if (document.password === hashedPassword) {
                 const token = jwt.sign({ title: "Login Page", name: document.username }, getJWTSecret(), { expiresIn: "24h" })
                 // return res.render('user', { title: "Login Page", name: document.username });
-                // return res.json({
-                //     data: {
-                //         token
-                //     }
-                // })
                 res.status(201).cookie("token",token, {expires: new Date(Date.now() + 24 * 3600000)})
                 return res.send("cookie send")
             }
@@ -57,6 +53,9 @@ const authController = {
         // })
         res.status(201).cookie("token",token, {expires: new Date(Date.now() + 24 * 3600000),httpOnly: true})
         return res.send("Cookie set")
+    },
+    async forgotPassword(req: Request, res:Response){
+        res.render("")
     }
 }
 

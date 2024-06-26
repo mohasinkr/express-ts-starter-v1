@@ -9,6 +9,7 @@ const logger = (req, res, next) => {
 }
 authRouter.post("/login", logger, authController.loginUser);
 authRouter.post("/signup", authController.addUser);
+authRouter.post("/forgot-password", authController.forgotPassword);
 
 
 export default authRouter;
