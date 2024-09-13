@@ -1,6 +1,6 @@
 services:
   backend:
-    image: simple-auth-image
+    image: auth-backend-v1
     volumes:
       - .:/app/
     ports:

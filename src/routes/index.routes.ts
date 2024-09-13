@@ -5,7 +5,7 @@ import webhookRouter from "./webhook.routes.js";
 
 const indexRouter = Router();
 
-indexRouter.use('/auth', authRouter);
-indexRouter.use('/user', userRouter);
+indexRouter.use("/auth", authRouter);
+indexRouter.use("/user", userRouter);
 
 export default indexRouter;

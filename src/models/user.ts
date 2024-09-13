@@ -1,6 +1,6 @@
 // create a mongodb model for me
 
-import { model, Schema } from 'mongoose';
+import { model, Schema } from "mongoose";
 
 const userSchema: Schema = new Schema({
   username: {
@@ -13,4 +13,4 @@ const userSchema: Schema = new Schema({
   },
 });
 
-export default model('User', userSchema);
+export default model("User", userSchema);

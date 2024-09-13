@@ -1,65 +1,67 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login Page</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100vw;
+        height: 100vh;
+        justify-content: center;
+        width: fit-content;
+        margin: 0 auto;
+      }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 100vw;
-      height: 100vh;
-      justify-content: center;
-      width: fit-content;
-      margin: 0 auto;
-    }
+      input {
+        width: 300px;
+        border-radius: 5px;
+        border-color: lightblue;
+        border-width: 2px;
+        padding: 10px;
+        outline: none;
+      }
 
-    input {
-      width: 300px;
-      border-radius: 5px;
-      border-color: lightblue;
-      border-width: 2px;
-      padding: 10px;
-      outline: none;
-    }
+      button {
+        background-color: darkcyan;
+        padding: 10px;
+        border-radius: 5px;
+        outline: none;
+        margin-top: 10px;
+        color: white;
+        font-weight: 600;
+      }
 
-    button {
-      background-color: darkcyan;
-      padding: 10px;
-      border-radius: 5px;
-      outline: none;
-      margin-top: 10px;
-      color: white;
-      font-weight: 600;
-    }
+      label {
+        font-size: 18px;
+        font-weight: 500;
+      }
+    </style>
+  </head>
 
-    label {
-      font-size: 18px;
-      font-weight: 500;
-    }
-  </style>
-</head>
-
-<body>
-  <form action="api/v1/auth/signup" method="POST">
-    <label for="username"> Username: </label>
-    <input type="text" name="username" id="username" />
-    <label for="password"> Password: </label>
-    <input type="password" name="password" id="password" />
-    <label for="password_confirmation"> Confirm Password: </label>
-    <input type="password" name="password_confirmation" id="password_confirmation" />
-    <button type="submit">Create Account</button>
-    <a href="/login">Go to Login Page</a>
-  </form>
-</body>
-
+  <body>
+    <form action="api/v1/auth/signup" method="POST">
+      <label for="username"> Username: </label>
+      <input type="text" name="username" id="username" />
+      <label for="password"> Password: </label>
+      <input type="password" name="password" id="password" />
+      <label for="password_confirmation"> Confirm Password: </label>
+      <input
+        type="password"
+        name="password_confirmation"
+        id="password_confirmation"
+      />
+      <button type="submit">Create Account</button>
+      <a href="/login">Go to Login Page</a>
+    </form>
+  </body>
 </html>
