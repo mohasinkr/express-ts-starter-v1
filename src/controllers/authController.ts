@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import getJWTSecret from "@/utils/getJWTSecret.js";
 import { Request, Response } from "express";
 
-async function loginUser(req: Request, res: Response) {
+const loginUser = async (req: Request, res: Response) => {
   const { username, password } = req.body;
   const document = await UserModel.findOne({ username });
   const hashedPassword = hashPassword(password);
@@ -28,7 +28,7 @@ async function loginUser(req: Request, res: Response) {
   });
 }
 
-async function addUser(req: Request, res: Response) {
+const addUser = async (req: Request, res: Response) => {
   const { password, username, password_confirmation } = req.body;
   const validation = await checkAuthValidation({
     username,
@@ -60,7 +60,7 @@ async function addUser(req: Request, res: Response) {
   return res.send("Cookie set");
 }
 
-async function forgotPassword(req: Request, res: Response) {
+const forgotPassword = async (req: Request, res: Response) => {
   res.render("");
 }
 
