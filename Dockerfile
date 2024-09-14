@@ -1,8 +1,8 @@
 FROM node:slim
 
-WORKDIR /app
+WORKDIR /backend
 
-COPY package.json /
+COPY package*.json /
 
 RUN npm install
 

@@ -1,7 +1,0 @@
-services:
-  backend:
-    image: auth-backend-v1
-    volumes:
-      - .:/app/
-    ports:
-      - "5500:4500"

@@ -12,16 +12,13 @@ async function loginUser(req: Request, res: Response) {
   const hashedPassword = hashPassword(password);
   if (document && hashedPassword) {
     if (document.password === hashedPassword) {
-      const token = jwt.sign(
-        { title: "Login Page", name: document.username },
-        getJWTSecret(),
-        { expiresIn: "24h" },
-      );
+      const token = jwt.verify(req.cookies.token, getJWTSecret());
       // return res.render('user', { title: "Login Page", name: document.username });
-      res.status(201).cookie("token", token, {
-        expires: new Date(Date.now() + 24 * 3600000),
+      return res.status(200).json({
+        success: true,
+        message: "Login successful",
+        data: token,
       });
-      return res.send("cookie send");
     }
   }
   return res.status(401).json({
@@ -30,6 +27,7 @@ async function loginUser(req: Request, res: Response) {
     data: null,
   });
 }
+
 async function addUser(req: Request, res: Response) {
   const { password, username, password_confirmation } = req.body;
   const validation = await checkAuthValidation({
@@ -53,7 +51,7 @@ async function addUser(req: Request, res: Response) {
   const token = jwt.sign(
     { title: "Login Page", name: document.username },
     getJWTSecret(),
-    { expiresIn: "24h" },
+    { expiresIn: "24h" }
   );
   res.status(201).cookie("token", token, {
     expires: new Date(Date.now() + 24 * 3600000),
@@ -61,6 +59,7 @@ async function addUser(req: Request, res: Response) {
   });
   return res.send("Cookie set");
 }
+
 async function forgotPassword(req: Request, res: Response) {
   res.render("");
 }
