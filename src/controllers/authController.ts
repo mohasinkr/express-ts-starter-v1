@@ -8,15 +8,20 @@ import { Request, Response } from "express";
 
 const loginUser = async (req: Request, res: Response) => {
   const { username, password } = req.body;
+
   const document = await UserModel.findOne({ username });
   const hashedPassword = hashPassword(password);
+
   if (document && hashedPassword) {
     if (document.password === hashedPassword) {
-      const token = jwt.verify(req.cookies.token, getJWTSecret());
-      // return res.render('user', { title: "Login Page", name: document.username });
+      const token = jwt.sign(
+        { title: "Login Page", name: document.username },
+        getJWTSecret(),
+        { expiresIn: "24h" }
+      );
       return res.status(200).json({
         success: true,
-        message: "Login successful",
+        message: "Login successfull",
         data: token,
       });
     }
@@ -26,16 +31,19 @@ const loginUser = async (req: Request, res: Response) => {
     message: ERROR_MESSAGES.INVALID_CREDENTIALS,
     data: null,
   });
-}
+};
 
 const addUser = async (req: Request, res: Response) => {
   const { password, username, password_confirmation } = req.body;
+
   const validation = await checkAuthValidation({
     username,
     password,
     password_confirmation,
   });
+
   const document = await UserModel.findOne({ username: validation.username });
+
   if (document) {
     return res.json({
       success: false,
@@ -48,20 +56,20 @@ const addUser = async (req: Request, res: Response) => {
   console.log(hashedPassword);
 
   await UserModel.create({ username, password: hashedPassword });
-  const token = jwt.sign(
-    { title: "Login Page", name: document.username },
-    getJWTSecret(),
-    { expiresIn: "24h" }
-  );
-  res.status(201).cookie("token", token, {
-    expires: new Date(Date.now() + 24 * 3600000),
-    httpOnly: true,
+
+  const token = jwt.sign({ name: document.username }, getJWTSecret(), {
+    expiresIn: "24h",
   });
-  return res.send("Cookie set");
-}
+
+  return res.status(201).json({
+    success: true,
+    message: "User added successfully",
+    data: token,
+  });
+};
 
 const forgotPassword = async (req: Request, res: Response) => {
   res.render("");
-}
+};
 
 export { loginUser, addUser, forgotPassword };
