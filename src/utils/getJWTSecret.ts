@@ -1,5 +1,5 @@
 const getJWTSecret = () => {
-  return process.env.JWT_SECRET || "";
+	return process.env.JWT_SECRET || "";
 };
 
 export default getJWTSecret;
