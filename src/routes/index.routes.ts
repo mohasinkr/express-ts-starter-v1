@@ -1,7 +1,6 @@
 import { Router } from "express";
 import authRouter from "./auth.routes.js";
 import userRouter from "./user.routes.js";
-import webhookRouter from "./webhook.routes.js";
 
 const indexRouter = Router();
 
