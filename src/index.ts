@@ -47,7 +47,7 @@ app.get("/gen-error", () => {
 
 app.use("/api/v1", indexRouter);
 
-app.get("/health-check", (_req, res, _next) => {
+app.get("/health-check", (_req, res, next) => {
   const uptimeInSeconds = process.uptime();
   const uptimeInHours = Math.floor(uptimeInSeconds / 3600);
   const uptimeInMinutes = Math.floor((uptimeInSeconds % 3600) / 60);
@@ -60,6 +60,7 @@ app.get("/health-check", (_req, res, _next) => {
     timestamp: new Date().toISOString(),
   };
   res.send(healthcheck);
+  next();
 });
 
 app.use(errorHandlerMiddleware);
