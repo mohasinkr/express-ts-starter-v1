@@ -1,4 +1,10 @@
-export const authMiddleware = (req: any, res: any, next: any) => {
-	console.log(req);
-	next();
+import type { NextFunction, Request, Response } from "express";
+
+export const authMiddleware = (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+) => {
+  console.log(req);
+  next();
 };

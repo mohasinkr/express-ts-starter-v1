@@ -1,6 +1,12 @@
 import https from "node:https";
 
-export const sendEmail = ({ toAddress, subject }) => {
+export const sendEmail = ({
+	toAddress,
+	subject,
+}: {
+	toAddress: string;
+	subject: string;
+}) => {
 	const options = {
 		method: "POST",
 		hostname: "api.brevo.com",
@@ -14,7 +20,7 @@ export const sendEmail = ({ toAddress, subject }) => {
 	};
 
 	const req = https.request(options, (res) => {
-		const chunks = [];
+		const chunks: Uint8Array[] = [];
 
 		res.on("data", (chunk) => {
 			chunks.push(chunk);
@@ -29,7 +35,8 @@ export const sendEmail = ({ toAddress, subject }) => {
 	req.write(
 		JSON.stringify({
 			sender: { name: "Simple Auth", email: "no-reply@simple-auth.com" },
-			subject: "Forgot Password",
+			to: [{ email: toAddress }],
+			subject,
 			textContent: `Here's your password reset link : `,
 		}),
 	);

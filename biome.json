@@ -9,18 +9,16 @@
 		"ignoreUnknown": false,
 		"ignore": []
 	},
-	"formatter": {
-		"enabled": true,
-		"indentStyle": "tab",
-		"indentWidth": 1
-	},
 	"organizeImports": {
 		"enabled": true
 	},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"correctness": {
+				"noUnusedVariables": "warn"
+			}
 		}
 	},
 	"javascript": {

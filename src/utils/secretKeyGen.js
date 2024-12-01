@@ -1,5 +1,5 @@
-import { appendFile } from "fs";
 import crypto from "node:crypto";
+import { appendFile } from "node:fs";
 
 function generateSecretKey() {
 	const randomKey = crypto.randomBytes(32).toString("hex");

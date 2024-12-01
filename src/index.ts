@@ -1,9 +1,10 @@
-import path from "path";
-import { fileURLToPath } from "url";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import dotenv from "dotenv";
 import express from "express";
-import morgan from "morgan";
 import { authMiddleware } from "./middleware/auth.middleware.js";
+import errorHandlerMiddleware from "./middleware/errorHandler.middleware.js";
+import { initMiddlewares } from "./middleware/index.js";
 import indexRouter from "./routes/index.routes.js";
 import { connectToDatabase } from "./utils/databaseConnection.js";
 
@@ -17,44 +18,45 @@ const PORT = Number.parseInt(process.env.PORT || "4500");
 
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(morgan("dev"));
+// setup the common middlewares (logging,body parser etc )
+initMiddlewares(app);
+
 app.set("views", `${__dirname}/views`);
 
 app.set("view engine", "pug");
 
-app.get("/", (req, res) => {
-	return res.send(`Yep, the server is running🏃 on ${PORT}`);
+app.get("/", (_, res: express.Response) => {
+	res.send(`Yep, the server is running🏃 on ${PORT}`);
 });
 
-app.get("/login", authMiddleware, (req, res) => {
+app.get("/login", authMiddleware, (_, res) => {
 	return res.sendFile(`${__dirname}/views/login.html`);
 });
 
-app.get("/signup", (req, res) => {
+app.get("/signup", (_, res) => {
 	return res.sendFile(`${__dirname}/views/signup.html`);
 });
 
-app.get("/forgot-password", (req, res) => {
+app.get("/forgot-password", (_, res) => {
 	return res.sendFile(`${__dirname}/views/forgot-password.html`);
+});
+
+app.get("/gen-error", () => {
+	throw Error("Unknown excpetion occured!");
 });
 
 app.use("/api/v1", indexRouter);
 
-app.get("/health-check", async (_req, res, _next) => {
+app.get("/health-check", (_req, res, _next) => {
 	const healthcheck = {
 		uptime: process.uptime(),
 		message: "OK",
 		timestamp: Date.now(),
 	};
-	try {
-		res.send(healthcheck);
-	} catch (error: any) {
-		healthcheck.message = error;
-		res.status(503).send();
-	}
+	res.send(healthcheck);
 });
+
+app.use(errorHandlerMiddleware);
 
 app.listen(PORT, async () => {
 	await connectToDatabase();
