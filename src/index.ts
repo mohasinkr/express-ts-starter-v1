@@ -26,39 +26,45 @@ app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 
 app.get("/", (_, res: express.Response) => {
-	res.send(`Yep, the server is running🏃 on ${PORT}`);
+  res.send(`Yep, the server is running🏃 on ${PORT}`);
 });
 
 app.get("/login", authMiddleware, (_, res) => {
-	return res.sendFile(`${__dirname}/views/login.html`);
+  return res.sendFile(`${__dirname}/views/login.html`);
 });
 
 app.get("/signup", (_, res) => {
-	return res.sendFile(`${__dirname}/views/signup.html`);
+  return res.sendFile(`${__dirname}/views/signup.html`);
 });
 
 app.get("/forgot-password", (_, res) => {
-	return res.sendFile(`${__dirname}/views/forgot-password.html`);
+  return res.sendFile(`${__dirname}/views/forgot-password.html`);
 });
 
 app.get("/gen-error", () => {
-	throw Error("Unknown excpetion occured!");
+  throw Error("Unknown excpetion occured!");
 });
 
 app.use("/api/v1", indexRouter);
 
 app.get("/health-check", (_req, res, _next) => {
-	const healthcheck = {
-		uptime: process.uptime(),
-		message: "OK",
-		timestamp: Date.now(),
-	};
-	res.send(healthcheck);
+  const uptimeInSeconds = process.uptime();
+  const uptimeInHours = Math.floor(uptimeInSeconds / 3600);
+  const uptimeInMinutes = Math.floor((uptimeInSeconds % 3600) / 60);
+  const uptimeInSecondsRemaining = Math.floor(uptimeInSeconds % 60);
+
+  const uptime = `${uptimeInHours}h ${uptimeInMinutes}m ${uptimeInSecondsRemaining}s`;
+  const healthcheck = {
+    uptime,
+    message: "OK",
+    timestamp: new Date().toISOString(),
+  };
+  res.send(healthcheck);
 });
 
 app.use(errorHandlerMiddleware);
 
 app.listen(PORT, async () => {
-	await connectToDatabase();
-	console.log(`Application started on URL ${HOST}:${PORT} 🎉`);
+  await connectToDatabase();
+  console.log(`Application started on URL ${HOST}:${PORT} 🎉`);
 });
