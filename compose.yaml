@@ -1,0 +1,14 @@
+services:
+  backend:
+    image: auth-backend
+    volumes:
+      - .:/backend/
+    ports:
+      - "5500:4500"
+    networks:
+      - auth-network
+
+networks:
+  auth-network:
+    external: true
+    driver: bridge
