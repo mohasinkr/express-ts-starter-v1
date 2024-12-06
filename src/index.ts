@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import dotenv from "dotenv";
 import express from "express";
 import { authMiddleware } from "./middleware/auth.middleware.js";
-import errorHandlerMiddleware from "./middleware/errorHandler.middleware.js";
+import { globalErrorHandler } from "./middleware/errorHandler.middleware.js";
 import { initMiddlewares } from "./middleware/index.js";
 import indexRouter from "./routes/index.routes.js";
 import { connectToDatabase } from "./utils/databaseConnection.js";
@@ -63,7 +63,7 @@ app.get("/health-check", (_req, res, next) => {
   next();
 });
 
-app.use(errorHandlerMiddleware);
+app.use(globalErrorHandler);
 
 app.listen(PORT, async () => {
   await connectToDatabase();
