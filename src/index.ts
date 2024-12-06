@@ -8,6 +8,11 @@ import { initMiddlewares } from "./middleware/index.js";
 import indexRouter from "./routes/index.routes.js";
 import { connectToDatabase } from "./utils/databaseConnection.js";
 
+import swaggerJsDoc from "swagger-jsdoc";
+import swaggerOptions from "@/config/swagger.js";
+import swaggerUI from "swagger-ui-express";
+
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -44,6 +49,9 @@ app.get("/forgot-password", (_, res) => {
 app.get("/gen-error", () => {
   throw Error("Unknown excpetion occured!");
 });
+
+const swaggerSpec = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
 app.use("/api/v1", indexRouter);
 
