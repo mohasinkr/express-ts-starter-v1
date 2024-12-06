@@ -12,7 +12,6 @@ import swaggerJsDoc from "swagger-jsdoc";
 import swaggerOptions from "@/config/swagger.js";
 import swaggerUI from "swagger-ui-express";
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
