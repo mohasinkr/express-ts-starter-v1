@@ -1,6 +1,6 @@
 import {
   addUser,
-  forgotPassword,
+  // forgotPassword,
   loginUser,
 } from "@/controllers/authController.js";
 import { Router } from "express";
@@ -45,6 +45,6 @@ const authRouter = Router();
 
 authRouter.post("/login", asyncHandler(loginUser));
 authRouter.post("/signup", asyncHandler(addUser));
-authRouter.post("/forgot-password", forgotPassword);
+// authRouter.post("/forgot-password", forgotPassword);
 
 export default authRouter;
