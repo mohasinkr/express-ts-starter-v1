@@ -15,7 +15,8 @@
 		"dev": "tsx watch src/index.ts",
 		"biome:lint": "biome check",
 		"biome:format": "biome check --write",
-		"biome:fix-force": "biome check --fix --unsafe"
+		"biome:fix-force": "biome check --fix --unsafe",
+		"docker:dev": "sudo docker compose up"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",

@@ -1,6 +1,6 @@
 FROM node:slim
 
-WORKDIR /backend
+WORKDIR /simple-auth-backend-v1
 
 COPY package*.json /
 

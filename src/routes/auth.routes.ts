@@ -2,7 +2,7 @@ import {
   addUser,
   // forgotPassword,
   loginUser,
-} from "@/controllers/authController.js";
+} from "@/controllers/auth.controller.js";
 import { Router } from "express";
 import { asyncHandler } from "@/utils/asyncHandler.js";
 
