@@ -67,14 +67,8 @@ const addUserService = async (
   });
 
   if (!validation) {
-    return {
-      statusCode: 400,
-      response: {
-        success: false,
-        message: ERROR_MESSAGES.VALIDATION_FAILED,
-        data: null,
-      },
-    };
+    console.log("validation erorr")
+    throw new AuthenticationError(ERROR_MESSAGES.VALIDATION_FAILED, 400);
   }
 
   const existingUser = await UserModel.findOne({

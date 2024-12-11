@@ -12,7 +12,7 @@ export async function checkAuthValidation(data: AuthType) {
 		return await authValidator.validate(data);
 	} catch (error) {
 		if (error instanceof errors.E_VALIDATION_ERROR) {
-			console.log(error.messages);
+			console.log(error.messages, "error from checkAuthValidation");
 		}
 	}
 	return null;

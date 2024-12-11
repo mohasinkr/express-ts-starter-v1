@@ -38,6 +38,7 @@ export const globalErrorHandler = (
   _next: NextFunction
 ): void => {
   const isDevelopment = process.env.NODE_ENV === "development";
+  console.log(isDevelopment, "isDevelopment");
 
   // Ensure defaults for unhandled errors
   const statusCode = err.statusCode || 500;
