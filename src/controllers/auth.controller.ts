@@ -1,6 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
 import { loginUserService, addUserService } from "@/services/auth.service.js";
-import { ERROR_MESSAGES } from "@/utils/constants.js";
 
 const loginUser = async (
 	req: Request,
