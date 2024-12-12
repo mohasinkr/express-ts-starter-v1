@@ -1,0 +1,18 @@
+openapi: 3.0.0
+info:
+  title: Simple Auth Backend API
+  description: API documentation for the backend project
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:4500/api/v1
+    description: Local development server
+
+paths:
+  /auth/login:
+    $ref: "src/swagger-docs/paths/auth.yaml"
+  /auth/signup:
+    $ref: "src/swagger-docs/paths/auth.yaml"
+
+components:
+  $ref: "src/swagger-docs/components/components.yaml"

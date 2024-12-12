@@ -1,0 +1,52 @@
+paths:
+  /auth/login:
+    post:
+      summary: "User Login"
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "user123"
+                password:
+                  type: string
+                  example: "securePassword123!"
+              required:
+                - username
+                - password
+      responses:
+        "200":
+          description: "Successful login, returns a JWT token."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "Bearer token-for-user"
+        "401":
+          description: "Unauthorized, invalid credentials."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid username or password."
+        "400":
+          description: "Bad Request, missing parameters."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Username and password are required."

@@ -1,0 +1,27 @@
+schemas:
+  LoginRequest:
+    type: object
+    properties:
+      username:
+        type: string
+        description: The username of the user
+        example: "user123"
+      password:
+        type: string
+        description: The password of the user
+        example: "securePassword123!"
+    required:
+      - username
+      - password
+
+  LoginResponse:
+    type: object
+    properties:
+      token:
+        type: string
+        description: The JWT token returned upon successful login
+        example: "Bearer token-for-user"
+      message:
+        type: string
+        description: A message indicating the result of the login attempt (optional)
+        example: "Login successful"

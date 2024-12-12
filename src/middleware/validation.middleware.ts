@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import vine from "@vinejs/vine";
-import AuthenticationError from "@/errors/authenticationError.js";
+import AuthenticationError from "@/errors/authentication.error.js";
 import { ERROR_MESSAGES } from "@/utils/constants.js";
 
 export const validateRequest =

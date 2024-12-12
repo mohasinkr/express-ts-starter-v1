@@ -8,8 +8,8 @@ import { initMiddlewares } from "./middleware/index.js";
 import indexRouter from "./routes/index.routes.js";
 import { connectToDatabase } from "./utils/databaseConnection.js";
 
-import swaggerJsDoc from "swagger-jsdoc";
-import swaggerOptions from "@/config/swagger.js";
+import yaml from "js-yaml";
+import fs from "node:fs";
 import swaggerUI from "swagger-ui-express";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -30,49 +30,51 @@ app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 
 app.get("/", (_, res: express.Response) => {
-  res.send(`Yep, the server is running🏃 on ${PORT}`);
+	res.send(`Yep, the server is running🏃 on ${PORT}`);
 });
 
 app.get("/login", authMiddleware, (_, res) => {
-  return res.sendFile(`${__dirname}/views/login.html`);
+	return res.sendFile(`${__dirname}/views/login.html`);
 });
 
 app.get("/signup", (_, res) => {
-  return res.sendFile(`${__dirname}/views/signup.html`);
+	return res.sendFile(`${__dirname}/views/signup.html`);
 });
 
 app.get("/forgot-password", (_, res) => {
-  return res.sendFile(`${__dirname}/views/forgot-password.html`);
+	return res.sendFile(`${__dirname}/views/forgot-password.html`);
 });
 
 app.get("/gen-error", () => {
-  throw Error("Unknown excpetion occured!");
+	throw Error("Unknown excpetion occured!");
 });
 
-const swaggerSpec = swaggerJsDoc(swaggerOptions);
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+const openApiSpecPath = path.resolve(__dirname, "swagger-docs", "openapi.yaml");
+console.log(openApiSpecPath, 'openApiSpecPath');
+const openApiSpec = yaml.load(fs.readFileSync(openApiSpecPath, "utf8")) as any;
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(openApiSpec));
 
 app.use("/api/v1", indexRouter);
 
 app.get("/health-check", (_req, res, next) => {
-  const uptimeInSeconds = process.uptime();
-  const uptimeInHours = Math.floor(uptimeInSeconds / 3600);
-  const uptimeInMinutes = Math.floor((uptimeInSeconds % 3600) / 60);
-  const uptimeInSecondsRemaining = Math.floor(uptimeInSeconds % 60);
+	const uptimeInSeconds = process.uptime();
+	const uptimeInHours = Math.floor(uptimeInSeconds / 3600);
+	const uptimeInMinutes = Math.floor((uptimeInSeconds % 3600) / 60);
+	const uptimeInSecondsRemaining = Math.floor(uptimeInSeconds % 60);
 
-  const uptime = `${uptimeInHours}h ${uptimeInMinutes}m ${uptimeInSecondsRemaining}s`;
-  const healthcheck = {
-    uptime,
-    message: "OK",
-    timestamp: new Date().toISOString(),
-  };
-  res.send(healthcheck);
-  next();
+	const uptime = `${uptimeInHours}h ${uptimeInMinutes}m ${uptimeInSecondsRemaining}s`;
+	const healthcheck = {
+		uptime,
+		message: "OK",
+		timestamp: new Date().toISOString(),
+	};
+	res.send(healthcheck);
+	next();
 });
 
 app.use(globalErrorHandler);
 
 app.listen(PORT, async () => {
-  await connectToDatabase();
-  console.log(`Application started on URL ${HOST}:${PORT} 🎉`);
+	await connectToDatabase();
+	console.log(`Application started on URL ${HOST}:${PORT} 🎉`);
 });
