@@ -22,7 +22,7 @@ const PORT = Number.parseInt(process.env.PORT || "4500");
 
 const app = express();
 
-// setup the common middlewares (logging,body parser etc )
+// setup the common middlewares (logging,body parser, cors, rate limiter etc )
 initMiddlewares(app);
 
 app.set("views", `${__dirname}/views`);
