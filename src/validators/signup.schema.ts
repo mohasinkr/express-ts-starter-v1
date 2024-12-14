@@ -6,7 +6,7 @@ export const signupSchema = vine.object({
 		.string()
 		.minLength(8)
 		.regex(
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/,
+			/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/gm,
 		)
 		.confirmed(),
 });
