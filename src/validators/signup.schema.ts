@@ -5,6 +5,8 @@ export const signupSchema = vine.object({
 	password: vine
 		.string()
 		.minLength(8)
-		.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/)
+		.regex(
+			/^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/,
+		)
 		.confirmed(),
 });
