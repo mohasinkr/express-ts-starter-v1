@@ -10,9 +10,9 @@ export const validateRequest =
 			const compiledSchema = vine.compile(schema);
 
 			await compiledSchema.validate(req.body);
-
 			next();
 		} catch (err) {
-			throw new AuthenticationError(ERROR_MESSAGES.VALIDATION_FAILED, 422);
+			console.log(err);
+			next(new AuthenticationError(ERROR_MESSAGES.VALIDATION_FAILED, 422));
 		}
 	};

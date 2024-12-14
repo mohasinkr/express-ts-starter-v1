@@ -5,6 +5,7 @@ import hashPassword from "@/utils/hashPassword.js";
 import jwt from "jsonwebtoken";
 import { checkAuthValidation } from "@/lib/checkValidation.js";
 import AuthenticationError from "@/errors/authentication.error.js";
+import CustomError from "@/errors/base.error.js";
 
 interface ServiceResponse {
 	statusCode: number;
@@ -51,7 +52,7 @@ const loginUserService = async (
 			throw error;
 		}
 		console.error("Unexpected error in loginUserService:", error);
-		throw new AuthenticationError(ERROR_MESSAGES.SERVER_ERROR, 500);
+		throw new CustomError(ERROR_MESSAGES.SERVER_ERROR, 500);
 	}
 };
 
