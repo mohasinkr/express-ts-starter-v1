@@ -1,6 +1,5 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import dotenv from "dotenv";
 import express from "express";
 import { authMiddleware } from "./middleware/auth.middleware.js";
 import { globalErrorHandler } from "./middleware/errorHandler.middleware.js";
@@ -14,8 +13,6 @@ import swaggerUI from "swagger-ui-express";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-dotenv.config();
 
 const HOST = process.env.HOST || "http://localhost";
 const PORT = Number.parseInt(process.env.PORT || "4500");
