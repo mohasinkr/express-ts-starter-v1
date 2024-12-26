@@ -1,8 +1,8 @@
 {
-  "name": "simple-auth-backend-v1",
+  "name": "express-ts-starter-v1",
   "author": "Mohasin K.R",
   "version": "1.0.0",
-  "description": "Simple authentication backend V1",
+  "description": "Modern express starter template with typescript",
   "main": "index.ts",
   "license": "MIT",
   "type": "module",

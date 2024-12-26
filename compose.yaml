@@ -1,8 +1,8 @@
 services:
   backend:
-    image: auth-backend-v1
+    image: express-ts-starter-v1
     volumes:
-      - .:/simple-auth-backend-v1/
+      - .:/express-ts-starter/
     ports:
       - "5500:4500"
     networks:
