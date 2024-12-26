@@ -1,8 +1,6 @@
-import dotenv from "dotenv";
 import mongoose, { type ConnectOptions } from "mongoose";
 
 mongoose.Promise = global.Promise;
-dotenv.config();
 
 const connectToDatabase = async (): Promise<void> => {
 	const options: ConnectOptions = {};
